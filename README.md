@@ -100,11 +100,3 @@ To get a local copy up and running, follow these simple steps.
     ```sh
     npm run dev
     ```
-
----
-
-## 👤 Project Creator
-
-- **Sk Atikur Rahaman**
-- **Connect on LinkedIn:** [https://www.linkedin.com/in/sk-atikur-rahaman-48a698278/](https://www.linkedin.com/in/sk-atikur-rahaman-48a698278/)
-
