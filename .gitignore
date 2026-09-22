@@ -1,0 +1,42 @@
+# This file tells Git which files and folders to ignore.
+
+# --- General ---
+.DS_Store
+*.log
+*.tmp
+
+# --- Python / FastAPI (for perception-api) ---
+# Environment
+venv/
+.venv/
+env/
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- Node.js / Next.js (for perception-ui) ---
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+
+# Local Environment Variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# VSCode settings
+.vscode/
