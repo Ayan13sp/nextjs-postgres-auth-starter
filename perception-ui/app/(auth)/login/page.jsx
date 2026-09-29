@@ -17,7 +17,7 @@ export default function LoginPage() {
 
   const onSubmit = async (data) => {
     try {
-      await login({ username: data.username, role: data.role });
+      await login({ username: data.username, password: data.password, role: data.role });
       toast.success("Login successful!");
       router.push("/dashboard");
     } catch (error) {
@@ -44,6 +44,16 @@ export default function LoginPage() {
                 {...register("username", { required: "This field is required" })}
               />
               {errors.username && <p className="text-red-500 text-xs mt-1">{errors.username.message}</p>}
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="********"
+                {...register("password", { required: "Password is required" })}
+              />
+              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
             </div>
             <div className="grid gap-2">
                 <Label htmlFor="role">Role</Label>

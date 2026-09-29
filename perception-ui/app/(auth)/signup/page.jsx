@@ -12,12 +12,12 @@ import { useAuthStore } from "@/store/auth"
 
 export default function SignupPage() {
   const router = useRouter()
-  const { login } = useAuthStore() // Use naive login directly
+  const { signup } = useAuthStore()
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm()
 
   const onSubmit = async (data) => {
     try {
-      await login({ username: data.username, role: data.role });
+      await signup({ username: data.username, password: data.password, role: data.role });
       toast.success("Signup successful! You are now logged in.");
       router.push("/dashboard");
     } catch (error) {
@@ -50,6 +50,11 @@ export default function SignupPage() {
               <Label htmlFor="username">Username</Label>
               <Input id="username" placeholder="your_username" {...register("username", { required: "Username is required" })} />
               {errors.username && <p className="text-red-500 text-xs mt-1">{errors.username.message}</p>}
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" placeholder="********" {...register("password", { required: "Password is required" })} />
+              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
             </div>
             <div className="grid gap-2">
                 <Label htmlFor="role">Role</Label>
