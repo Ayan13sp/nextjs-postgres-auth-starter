@@ -1,8 +1,7 @@
 import json
+import os
 from groq import AsyncGroq 
 from app.core.config import settings
-
-client = AsyncGroq(api_key=settings.GROQ_API_KEY)
 
 async def get_ai_evaluation(model_answer: str, student_answer: str) -> dict:
     """
@@ -11,6 +10,13 @@ async def get_ai_evaluation(model_answer: str, student_answer: str) -> dict:
     Returns:
         A dictionary with 'score' and 'feedback'.
     """
+    api_key = settings.GROQ_API_KEY or os.getenv("GROQ_API_KEY")
+    if not api_key:
+        return {
+            "score": -1,
+            "feedback": "GROQ_API_KEY is not set. Please add GROQ_API_KEY to your Render environment variables."
+        }
+
     system_prompt = """
     You are an expert AI evaluator for an online learning platform. Your task is to evaluate a student's answer based on a model answer provided by the teacher.
 
@@ -23,6 +29,7 @@ async def get_ai_evaluation(model_answer: str, student_answer: str) -> dict:
     """
 
     try:
+        client = AsyncGroq(api_key=api_key)
         chat_completion = await client.chat.completions.create(
             messages=[
                 {
@@ -39,9 +46,24 @@ async def get_ai_evaluation(model_answer: str, student_answer: str) -> dict:
             response_format={"type": "json_object"},
         )
         
-        response_content = chat_completion.choices[0].message.content
-        return json.loads(response_content)
+        response_content = chat_completion.choices[0].message.content.strip()
+        if response_content.startswith("```"):
+            lines = response_content.splitlines()
+            if lines[0].startswith("```"):
+                lines = lines[1:]
+            if lines and lines[-1].startswith("```"):
+                lines = lines[:-1]
+            response_content = "\n".join(lines).strip()
+
+        result = json.loads(response_content)
+        score = int(result.get("score", 0))
+        score = max(0, min(10, score))
+        feedback = str(result.get("feedback", "No feedback provided."))
+        return {"score": score, "feedback": feedback}
 
     except Exception as e:
         print(f"An error occurred during AI evaluation: {e}")
-        return {"score": -1, "feedback": "An error occurred while evaluating the answer. Please try again."}
+        return {
+            "score": -1,
+            "feedback": f"AI evaluation error ({type(e).__name__}): {str(e)}"
+        }
