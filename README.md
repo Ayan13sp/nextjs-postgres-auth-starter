@@ -6,7 +6,7 @@
 
 ## 🚀 Live Demo
 
-https://perception-ui.onrender.com
+https://ai-evaluation-plat4m.vercel.app
 
 ---
 
@@ -34,7 +34,6 @@ https://perception-ui.onrender.com
 - **Backend:** FastAPI (Python), Uvicorn
 - **Database:** MongoDB (with Beanie ODM)
 - **AI Integration:** Groq API for high-speed LLM inference (Llama 3)
-- **Authentication:** JWT (JSON Web Tokens), Google OAuth 2.0
 - **Deployment:** Render
 
 ---
@@ -49,7 +48,6 @@ To get a local copy up and running, follow these simple steps.
 - Node.js 20.x
 - A MongoDB Atlas account
 - A Groq API Key
-- A Google Cloud Platform account for OAuth credentials
 
 ### Backend Setup (`perception-api`)
 
