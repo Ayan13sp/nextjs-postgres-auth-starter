@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 export default function AboutPage() {
   return (
@@ -43,25 +42,6 @@ export default function AboutPage() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Creator Information Card */}
-      <Card>
-        <CardHeader><CardTitle>👤 Project Creator</CardTitle></CardHeader>
-        <CardContent className="flex flex-col items-start space-y-4">
-          <p className="text-lg">
-            This project was created by <strong>Sk Atikur Rahaman</strong>.
-          </p>
-          <Button asChild>
-            <a 
-              href="https://www.linkedin.com/in/sk-atikur-rahaman-48a698278/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              Connect on LinkedIn
-            </a>
-          </Button>
-        </CardContent>
-      </Card>
     </div>
   );
 }
