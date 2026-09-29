@@ -21,7 +21,8 @@ export default function SignupPage() {
       toast.success("Signup successful! You are now logged in.");
       router.push("/dashboard");
     } catch (error) {
-      toast.error(error.response?.data?.detail || "Signup failed.");
+      const message = error.response?.data?.detail || (error.code === "ERR_NETWORK" ? "Cannot connect to backend server. Make sure API is running on port 8000." : error.message) || "Signup failed.";
+      toast.error(message);
     }
   }
 

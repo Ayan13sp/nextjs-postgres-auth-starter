@@ -21,7 +21,8 @@ export default function LoginPage() {
       toast.success("Login successful!");
       router.push("/dashboard");
     } catch (error) {
-      toast.error("Login failed. Please check your credentials.");
+      const message = error.response?.data?.detail || (error.code === "ERR_NETWORK" ? "Cannot connect to backend server. Make sure API is running on port 8000." : error.message) || "Login failed. Please check your credentials.";
+      toast.error(message);
     }
   }
 
