@@ -41,7 +41,7 @@ async def get_ai_evaluation(model_answer: str, student_answer: str) -> dict:
                     "content": f'Please evaluate the following submission:\n\n**Model Answer:** "{model_answer}"\n\n**Student\'s Answer:** "{student_answer}"',
                 },
             ],
-            model="gpt-oss-120b",
+            model="openai/gpt-oss-120b",
             temperature=0.2,
             response_format={"type": "json_object"},
         )
